@@ -14,7 +14,6 @@ from config import Config, head
 print("---", Config.EMAIL_ID)
 EMAIL_ID = json.loads(base64.b64decode(Config.EMAIL_ID).decode("ascii"))
 
-
 tz_in = pytz.timezone('Asia/Kolkata')
 
 def send_alert(subject, body):
@@ -35,16 +34,16 @@ def send_alert(subject, body):
         "env": body.get("env", "N/A"),
         "time": current_time,
         "ip": server_ip,
-        "cpu_usage": body.get("cpu_usage", "N/A"),
-        "mem_usage": body.get("mem_usage", "N/A"),
-        "disk_usage": body.get("disk_usage", "N/A")
+        "cpu_usage": body.get("cpu_usage", 0),
+        "mem_usage": body.get("mem_usage", 0),
+        "disk_usage": body.get("disk_usage", 0)
     }
     print("Data passed to template:", data)  # Debug print statement
     final_html = html_template.render(data=data)
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = subject
-    msg['From'] = Config.EMAIL_ID['username']
+    msg['From'] = EMAIL_ID['username']
     msg['To'] = "rahulkataria3355@gmail.com"
     msg['Cc'] = Config.STARTUP_MAIL_CC
     part2 = MIMEText(final_html, 'html')
@@ -54,9 +53,9 @@ def send_alert(subject, body):
         with smtplib.SMTP(Config.SMTP_SERVER, Config.SMTP_PORT) as mail:
             mail.ehlo()
             mail.starttls()
-            mail.login(Config.EMAIL_ID['username'], Config.EMAIL_ID['password'])
+            mail.login(EMAIL_ID['username'], EMAIL_ID['password'])
             mail.sendmail(
-                Config.EMAIL_ID['username'], 
+                EMAIL_ID['username'], 
                 msg['To'].split(",") + msg['Cc'].split(","), 
                 msg.as_string()
             )

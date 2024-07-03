@@ -22,4 +22,4 @@ if __name__ == '__main__':
     # This allows the thread to run in the background while the app runs
     threading.Thread(target=monitor, daemon=True).start()
     # Run the Flask app on host 0.0.0.0, port 5000, in debug mode
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)

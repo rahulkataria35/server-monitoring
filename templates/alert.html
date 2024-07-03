@@ -63,17 +63,26 @@
         .btn:hover {
             background-color: #0056b3;
         }
+        .high-usage {
+            background-color: #ffcccc; /* Light red */
+        }
+        .medium-usage {
+            background-color: #fff3cd; /* Light yellow */
+        }
+        .low-usage {
+            background-color: #d4edda; /* Light green */
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>{{ project_name }} Usage Alert</h1>
+            <h1>{{ data.project_name }} Usage Alert</h1>
         </div>
         <div class="content">
-            <p><strong>Environment:</strong> {{ env }}</p>
-            <p><strong>Time:</strong> {{ time }}</p>
-            <p><strong>Server IP:</strong> {{ ip }}</p>
+            <p><strong>Environment:</strong> {{ data.env }}</p>
+            <p><strong>Time:</strong> {{ data.time }}</p>
+            <p><strong>Server IP:</strong> {{ data.ip }}</p>
             <table>
                 <thead>
                     <tr>
@@ -82,17 +91,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr class="{% if data.cpu_usage > 85 %}high-usage{% elif data.cpu_usage > 70 %}medium-usage{% else %}low-usage{% endif %}">
                         <td>CPU Usage</td>
-                        <td>{{ cpu_usage }}%</td>
+                        <td>{{ data.cpu_usage }}%</td>
                     </tr>
-                    <tr>
+                    <tr class="{% if data.mem_usage > 85 %}high-usage{% elif data.mem_usage > 70 %}medium-usage{% else %}low-usage{% endif %}">
                         <td>Memory Usage</td>
-                        <td>{{ mem_usage }}%</td>
+                        <td>{{ data.mem_usage }}%</td>
                     </tr>
-                    <tr>
+                    <tr class="{% if data.disk_usage > 85 %}high-usage{% elif data.disk_usage > 70 %}medium-usage{% else %}low-usage{% endif %}">
                         <td>Disk Usage</td>
-                        <td>{{ disk_usage }}%</td>
+                        <td>{{ data.disk_usage }}%</td>
                     </tr>
                 </tbody>
             </table>

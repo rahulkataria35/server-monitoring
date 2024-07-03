@@ -11,12 +11,18 @@ def log_and_check_metrics():
 
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     insert_metrics(timestamp, cpu_usage, memory_usage, disk_usage)
+    final_data = {
+        "cpu_usage": int(cpu_usage),
+        "mem_usage": int(memory_usage),
+        "disk_usage": int(disk_usage)
 
+        }
     if cpu_usage > Config.CPU_THRESHOLD:
-        print("----cpu----")
-        send_alert('CPU Alert', {"cpu_usage": cpu_usage})
+        print("----cpu-----")
+        send_alert('CPU Alert', final_data )
     if memory_usage > Config.MEMORY_THRESHOLD:
         print("----memory----")
-        send_alert('Memory Alert', {"mem_usage": memory_usage})
+        send_alert('Memory Alert', final_data )
     if disk_usage > Config.DISK_THRESHOLD:
-        send_alert('Disk Alert', {"disk_usage": disk_usage})
+        print("----dick----")
+        send_alert('Disk Alert', final_data)

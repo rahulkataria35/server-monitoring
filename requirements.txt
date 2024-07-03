@@ -1,6 +1,6 @@
 Flask
 psutil
 requests
-psycopg2
+# psycopg2
 psycopg2-binary
 pytz
