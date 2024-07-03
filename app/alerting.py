@@ -11,7 +11,6 @@ import pytz
 from config import Config, head
 
 # loading email credentials
-print("---", Config.EMAIL_ID)
 EMAIL_ID = json.loads(base64.b64decode(Config.EMAIL_ID).decode("ascii"))
 
 tz_in = pytz.timezone('Asia/Kolkata')
@@ -20,7 +19,6 @@ def send_alert(subject, body):
     """
     Sends alert emails.
     """
-    # print logs
     print(f"[{datetime.now(tz_in)}] Sending alert email...")
     server_ip = get('https://api.ipify.org').text
 
@@ -38,7 +36,7 @@ def send_alert(subject, body):
         "mem_usage": body.get("mem_usage", 0),
         "disk_usage": body.get("disk_usage", 0)
     }
-    print("Data passed to template:", data)  # Debug print statement
+
     final_html = html_template.render(data=data)
 
     msg = MIMEMultipart('alternative')
