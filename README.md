@@ -5,6 +5,7 @@ Using `Python` and `Docker` with a combination of libraries like `psutil` for mo
 This is a Server Monitoring application built with Flask, designed to monitor server metrics such as CPU usage, memory usage, and disk usage. Alerts are generated based on the thresholds and sent via email.
 
 ## Features
+
 - Real-time monitoring of server metrics.
 - Threshold-based alert generation.
 - Alerts sent via email with detailed metrics.
